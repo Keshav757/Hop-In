@@ -23,7 +23,6 @@ app.get("/",(req,res)=>{
 async function main() { 
     const connectiondb=await mongoose.connect("mongodb+srv://Hopin:TNkLoEO9CEJ7IShE@hopin.tebf5.mongodb.net/")
     console.log(`MONGO connected to: ${connectiondb.connection.host}`)
-    
 }
 main()
 app.use('/users',userRoutes);

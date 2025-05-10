@@ -6,23 +6,31 @@ function Navbar() {
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem('token'); // Check if user is logged in
 
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Remove token from localStorage
+    localStorage.removeItem('user');  // Remove user data if stored
+    window.location.reload(); // Refresh the page to reflect changes
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-left">
         <div className="navbar-logo">
           <h1>Carpool</h1>
         </div>
-        <button className="navbar-button">Ride</button>
-        <button className="navbar-button" onClick={() => navigate('/create-ride')}>Drive</button>
+        
       </div>
       <div className="navbar-right">
         {!isLoggedIn ? (
           <>
             <button className="navbar-button" onClick={() => navigate('/Authentication')}>Login</button>
-            <button className="navbar-button navbar-signup">Signup</button>
+            <button className="navbar-button navbar-signup" onClick={() => navigate('/Authentication')}>Signup</button>
           </>
         ) : (
-          <button className="navbar-button" onClick={() => { /* Logout logic here */ }}>Logout</button>
+          <>
+            <button className="navbar-button" onClick={() => navigate('/profile')}>Profile</button>
+            <button className="navbar-button" onClick={handleLogout}>Logout</button>
+          </>
         )}
       </div>
     </nav>

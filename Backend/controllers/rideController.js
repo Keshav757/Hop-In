@@ -33,7 +33,7 @@ exports.createRide = async (req, res) => {
 // Get all rides
 exports.getAllRides = async (req, res) => {
     try {
-        const rides = await Ride.find().populate('driver', 'name email vehicle');  
+        const rides = await Ride.find();
         res.status(200).json(rides);
     } catch (error) {
         res.status(400).json({ error: error.message });

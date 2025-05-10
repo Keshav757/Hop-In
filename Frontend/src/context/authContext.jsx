@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
         if (storedUser && token) {
             setUser(storedUser);
         }
+        console.log('Loaded Token:', token);
     }, []);
 
     // Update localStorage when user changes
@@ -22,6 +23,7 @@ export const AuthProvider = ({ children }) => {
             localStorage.removeItem('user');
             localStorage.removeItem('token');
         }
+        console.log('Updated Token:', localStorage.getItem('token'));
     }, [user]);
 
     const login = async (email, password) => {
@@ -38,7 +40,8 @@ export const AuthProvider = ({ children }) => {
 
             const data = await response.json();
             setUser(data.user);
-            localStorage.setItem('token', data.user.token); // Explicitly store token
+            localStorage.setItem('token', data.token); // Ensure token is stored
+            console.log('Login Success - Token Stored:', data.token);
             return data;
         } catch (error) {
             console.error('Login error:', error);
@@ -60,7 +63,9 @@ export const AuthProvider = ({ children }) => {
 
             const data = await response.json();
             setUser(data.user);
-            localStorage.setItem('token', data.user.token); // Explicitly store token
+            localStorage.setItem('token', data.token);
+             // Ensure token is stored
+            console.log('Registration Success - Token Stored:', data.token);
             return data;
         } catch (error) {
             console.error('Registration error:', error);
@@ -71,6 +76,7 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         setUser(null);
         localStorage.removeItem('token');
+        console.log('User logged out - Token removed');
     };
 
     return (

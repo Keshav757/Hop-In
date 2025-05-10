@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Grid, Typography, Link, IconButton } from '@mui/material';
-import { Facebook, Twitter, Instagram, Language } from '@mui/icons-material';
+import {  Twitter, Instagram, Language, LinkedIn } from '@mui/icons-material';
 import '../styles/Footer.css'; // You can still use custom CSS if needed
 
 function Footer() {
@@ -11,7 +11,7 @@ function Footer() {
         <Grid container spacing={4} sx={{ mb: 4 }}>
           <Grid item xs={12} sm={6} md={3}>
             <Typography variant="h4" component="h2" sx={{ fontWeight: 'bold', color: '#222' }}>
-              Uber
+              Hopin
             </Typography>
             <Link href="#" variant="body2" sx={{ display: 'block', marginTop: '8px', color: '#007bff' }}>
               Visit Help Center
@@ -97,13 +97,10 @@ function Footer() {
         {/* Footer Bottom */}
         <Box sx={{ borderTop: '1px solid #ddd', paddingTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Box sx={{ display: 'flex', gap: '16px' }}>
-            <IconButton href="#" color="inherit">
-              <Language />
+            <IconButton href="https://www.linkedin.com/in/keshav-sai-321185155/" color="inherit">
+              <LinkedIn />
             </IconButton>
-            <IconButton href="#" color="inherit">
-              <Facebook />
-            </IconButton>
-            <IconButton href="#" color="inherit">
+            <IconButton href="https://www.linkedin.com/in/keshav-sai-321185155/" color="inherit">
               <Twitter />
             </IconButton>
             <IconButton href="#" color="inherit">

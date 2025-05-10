@@ -8,12 +8,13 @@ body {
   margin: 0;
   padding: 0;
 }
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px; /* Moderate padding for size */
-  background-color: black;
+  background-color: #5BB1A9; /* Updated navbar color */
   width: 100%; /* Full width */
   height: 80px; /* Adjust height */
   margin: 0; /* Remove any margin */
@@ -40,7 +41,7 @@ body {
   font-size: 18px; /* Moderate button font size */
   padding: 10px 20px; /* Moderate button padding */
   color: white;
-  background-color: #333; /* Button color */
+  background-color: #016a61; /* Button color */
   border-radius: 6px; /* Rounded corners */
   border: none;
   cursor: pointer;
