@@ -4,6 +4,8 @@ import axios from "axios";
 const BookRide = () => {
   const [rides, setRides] = useState([]);
   const [bookingStatus, setBookingStatus] = useState(null);
+  const storage=window.localStorage;
+  const user=JSON.parse(storage.getItem('user'));
 
   useEffect(() => {
     axios.get("http://localhost:3000/rides/available")
@@ -11,8 +13,8 @@ const BookRide = () => {
       .catch(error => console.error("Error fetching rides:", error));
   }, []);
 
-  const bookRide = (rideId) => {
-    axios.post("http://localhost:3000/bookings/new", { rideId })
+  const bookRide = (rideId,userId) => {
+    axios.post("http://localhost:3000/bookings/new", { rideId,userId })
       .then(() => setBookingStatus("✅ Ride booked successfully!"))
       .catch(() => setBookingStatus("❌ Error booking ride"));
   };
@@ -21,7 +23,6 @@ const BookRide = () => {
     <div style={styles.container}>
       <h1 style={styles.heading}>Available Rides</h1>
       {bookingStatus && <p style={styles.status}>{bookingStatus}</p>}
-
       <div style={styles.grid}>
         {rides.map(ride => (
           <div key={ride._id} style={styles.card}>
@@ -29,7 +30,7 @@ const BookRide = () => {
             <p><strong>To:</strong> {ride.destination}</p>
             <p><strong>Departure:</strong> {new Date(ride.departureTime).toLocaleString()}</p>
             <p><strong>Price:</strong> ₹{ride.pricePerSeat}</p>
-            <button onClick={() => bookRide(ride._id)} style={styles.button}>
+            <button onClick={() => bookRide(ride._id,user?.id)} style={styles.button}>
               Book Now
             </button>
           </div>

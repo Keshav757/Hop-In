@@ -18,7 +18,7 @@ function App() {
         <AuthProvider>
             <RideProvider>
                 <LoadScript
-                    googleMapsApiKey=""
+                    googleMapsApiKey="AIzaSyCWdv5NBekZALcrzKGxS_SDciKzDywKr0o"
                     libraries={libraries}
                 >
                     <Router>
