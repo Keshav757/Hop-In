@@ -15,7 +15,7 @@ const center = {
 
 function MapDisplay() {
   // const { isLoaded } = useLoadScript({
-  //   googleMapsApiKey: 'AIzaSyCWdv5NBekZALcrzKGxS_SDciKzDywKr0o',
+  //   googleMapsApiKey: '',
   //   libraries: ['places'],
   // });
 

@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const jwt=require('jsonwebtoken')
 const rideController = require('../controllers/rideController');
+const jwt=require('jsonwebtoken')
 const verifyToken = (req, res, next) => {
-    const token =req.header('Authorization').split(' ')[1];
+    const token =req.header('Authorization')?.split(' ')[1];
     if (!token) return res.status(403).send('Access denied');
-
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded;  // User's data is available in req.user
