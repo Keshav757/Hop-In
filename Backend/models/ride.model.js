@@ -14,6 +14,14 @@ const rideSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  originPlaceId: {
+    type: String,
+    required: true
+  }, 
+  destinationPlaceId: {
+    type: String,
+    required: true
+  },
   departureTime: {
     type: Date,
     required: true

@@ -59,7 +59,7 @@ function App() {
           <Button  sx={{backgroundColor: '#5BB1A9'}} variant="contained" size="large" color="primary" onClick={() => navigate('/create-ride')}>
             Offer a Ride
           </Button>
-          <Button sx={{color: '#5BB1A9'}} variant="outlined" size="large" color="green" onClick={()=> navigate('/book-ride')}>
+          <Button sx={{color: '#5BB1A9'}} variant="outlined" size="large" color="green" onClick={()=> navigate('/matching')}>
             Find a Ride
           </Button>
         </Stack>

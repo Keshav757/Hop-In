@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt=require('jsonwebtoken')
 const rideController = require('../controllers/rideController');
-const jwt=require('jsonwebtoken')
+
 const verifyToken = (req, res, next) => {
     const token =req.header('Authorization')?.split(' ')[1];
     if (!token) return res.status(403).send('Access denied');
@@ -17,5 +17,5 @@ const verifyToken = (req, res, next) => {
 };
 router.post('/new-ride',verifyToken, rideController.createRide);
 router.get('/available', rideController.getAllRides);
-
+router.post('/match',rideController.matchRides)
 module.exports = router;

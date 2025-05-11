@@ -4,7 +4,7 @@ const Ride = require('../models/ride.model');
 // Book a ride
 exports.bookRide = async (req, res) => {
     try {
-        const { rideId} = req.body;
+        const { rideId } = req.body;
 
         if (!rideId) {
             return res.status(400).json({ error: 'Missing required fields' });
@@ -14,14 +14,17 @@ exports.bookRide = async (req, res) => {
         if (!ride) {
             return res.status(404).json({ error: 'Ride not found' });
         }
-        console.log(ride.pricePerSeat)
+
+        const userId = req.user.id;  // ✅ Get user ID from the JWT payload
+        const seatsBooked = 1;
+
         const booking = new Booking({
             ride: rideId,
             user: userId,
-            seatsBooked: 1,
-            totalCost: ride.pricePerSeat
+            seatsBooked,
+            totalCost: ride.pricePerSeat * seatsBooked
         });
-        console.log('after saving')
+
         await booking.save();
 
         ride.availableSeats -= seatsBooked;

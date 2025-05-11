@@ -12,11 +12,20 @@ const BookRide = () => {
   }, []);
 
   const bookRide = (rideId) => {
-    axios.post("http://localhost:3000/bookings/new", { rideId })
-      .then(() => setBookingStatus("✅ Ride booked successfully!"))
-      .catch(() => setBookingStatus("❌ Error booking ride"));
+    const token = localStorage.getItem("token"); // Get JWT from localStorage (or however you're storing it)
+  
+    axios.post("http://localhost:3000/bookings/new", { rideId }, {
+      headers: {
+        Authorization: `Bearer ${token}` // Set the Authorization header
+      }
+    })
+    .then(() => setBookingStatus("✅ Ride booked successfully!"))
+    .catch((error) => {
+      console.error("Error booking ride:", error);
+      setBookingStatus("❌ Error booking ride");
+    });
   };
-
+  
   return (
     <div style={styles.container}>
       <h1 style={styles.heading}>Available Rides</h1>

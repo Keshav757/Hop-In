@@ -6,6 +6,7 @@ const bookingRoutes = require('./routes/bookingRoutes');
 const { errorHandler } = require('./middlewares/errorHandler');
 const { corsOptions } = require('./middlewares/cors');
 const { limiter } = require('./middlewares/rateLimiter');
+const Ride = require('../Backend/models/ride.model');
 require('dotenv').config();
 const app=express()
 app.use(express.urlencoded({limit:"40kb",extended: true}))
@@ -25,6 +26,8 @@ async function main() {
     console.log(`MONGO connected to: ${connectiondb.connection.host}`)
 }
 main()
+
+
 app.use('/users',userRoutes);
 app.use('/rides', rideRoutes);
 app.use('/bookings', bookingRoutes);

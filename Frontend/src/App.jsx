@@ -10,6 +10,7 @@ import Details from './pages/details';
 import RideForm from './components/createRide';
 import Profile from './pages/Profile'; // Import Profile page
 import BookRide from './components/bookRide';
+import BookingPage from './components/bookingForm';
 
 function App() {
     const libraries = ['places'];
@@ -18,7 +19,7 @@ function App() {
         <AuthProvider>
             <RideProvider>
                 <LoadScript
-                    googleMapsApiKey=""
+                    googleMapsApiKey="AIzaSyCWdv5NBekZALcrzKGxS_SDciKzDywKr0o"
                     libraries={libraries}
                 >
                     <Router>
@@ -30,6 +31,7 @@ function App() {
                             <Route path="/book-ride" element={<BookRide/>}/>
                             <Route path="/create-ride" element={<RideForm />} />
                             <Route path="/profile" element={<Profile />} />
+                            <Route path="/matching" element={<BookingPage/>}/>
 
                             {/* Redirect based on authentication */}
                             <Route
