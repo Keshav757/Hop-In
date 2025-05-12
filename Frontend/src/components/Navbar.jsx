@@ -16,7 +16,7 @@ function Navbar() {
     <nav className="navbar">
       <div className="navbar-left">
         <div className="navbar-logo">
-          <h1>Carpool</h1>
+          <h1>HopIn</h1>
         </div>
         
       </div>

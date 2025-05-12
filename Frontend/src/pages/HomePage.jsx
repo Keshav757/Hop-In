@@ -56,10 +56,10 @@ function App() {
         }}
       >
         <Stack direction="row" spacing={4}>
-          <Button  sx={{backgroundColor: '#5BB1A9'}} variant="contained" size="large" color="primary" onClick={() => navigate('/create-ride')}>
+          <Button  sx={{backgroundColor: '#1CAC78',color:'#20201e',border:'1px solid #20201e',fontWeight:'bold'}} variant="contained" size="large" color="primary" onClick={() => navigate('/create-ride')}>
             Offer a Ride
           </Button>
-          <Button sx={{color: '#5BB1A9'}} variant="outlined" size="large" color="green" onClick={()=> navigate('/matching')}>
+          <Button sx={{backgroundColor: '#20201e',color:'#49bd93',border:'1px solid #20201e',fontWeight:'bold'}} variant="contained" size="large" color="green" onClick={()=> navigate('/matching')}>
             Find a Ride
           </Button>
         </Stack>

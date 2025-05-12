@@ -14,9 +14,10 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px; /* Moderate padding for size */
-  background-color: #5BB1A9; /* Updated navbar color */
+  background-color: #fffffc; /* Updated navbar color */
+  border-bottom: 1px solid #20201e;
   width: 100%; /* Full width */
-  height: 80px; /* Adjust height */
+  height: 50px; /* Adjust height */
   margin: 0; /* Remove any margin */
   box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
@@ -28,7 +29,7 @@ body {
 }
 
 .navbar-logo h1 {
-  color: white;
+  color: #20201e;
   font-size: 32px; /* Reasonable logo text size */
 }
 
@@ -39,15 +40,14 @@ body {
 
 .navbar-button {
   font-size: 18px; /* Moderate button font size */
-  padding: 10px 20px; /* Moderate button padding */
-  color: white;
-  background-color: #016a61; /* Button color */
-  border-radius: 6px; /* Rounded corners */
+  color: #20201e;
+  background-color: #fffffc;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .navbar-button:hover {
-  background-color: #555; /* Darker background on hover */
+  font-size: 19px;
+  color: #1CAC78;
+  transition: 0.2s ease;
 }

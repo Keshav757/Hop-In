@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Autocomplete } from "@react-google-maps/api";
+import { CircularProgress } from "@mui/material";
 
 const BookingPage = () => {
   const [originRef, setOriginRef] = useState(null);
@@ -44,37 +45,41 @@ const BookingPage = () => {
   
 
   return (
-    <div style={{ padding: "2rem", fontFamily: "Arial, sans-serif" }}>
-      <h2>Find a Ride</h2>
-
-      <div style={{ marginBottom: "1rem" }}>
-        <label>Origin:</label><br />
+    <>
+    <h2 style={{padding:'10px'}}>Find a Ride</h2>
+    <div style={{ display:'flex', justifyContent:'space-between', gap:'10px',width:'100%',alignItems:'end'}}>
+      <div style={{ margin: "0 10px 0 10px",padding:'10px',width:'40%' }}>
+        <label style={{fontWeight:'500'}}>Origin:</label><br />
         <Autocomplete onLoad={(ref) => setOriginRef(ref)}>
           <input
             type="text"
             placeholder="Enter your origin"
-            style={{ width: "300px", padding: "8px" }}
+            style={{ width: "100%", padding: "8px" }}
           />
         </Autocomplete>
       </div>
 
-      <div style={{ marginBottom: "1rem" }}>
-        <label>Destination:</label><br />
+      <div style={{ margin: "0 10px 0 10px",padding:'10px',width:'40%'   }}>
+        <label style={{fontWeight:'500'}}>Destination:</label><br />
         <Autocomplete onLoad={(ref) => setDestinationRef(ref)}>
           <input
             type="text"
             placeholder="Enter your destination"
-            style={{ width: "300px", padding: "8px" }}
+            style={{ width: "100%", padding: "8px" }}
           />
         </Autocomplete>
       </div>
 
+      <div style={{ margin: "0 10px 0 10px",padding:'10px',width:'20%'   }}>
       <button
         onClick={handleSearch}
         style={{
-          padding: "10px 20px",
-          backgroundColor: "#007bff",
-          color: "#fff",
+          fontWeight:'500',
+          fontSize:'16px',
+          width:'100%',
+          height:'40px',
+          backgroundColor: "#1CAC78",
+          color: "#20201e",
           border: "none",
           borderRadius: "6px",
           cursor: "pointer",
@@ -82,13 +87,18 @@ const BookingPage = () => {
       >
         Search Rides
       </button>
-
-      <div style={{ marginTop: "2rem" }}>
-        <h3>Matching Rides</h3>
+      </div>
+    </div>
+    <div style={{ marginTop: "2rem" }}>
         {loading ? (
-          <p>Loading...</p>
+          <div style={{display:'flex',justifyContent:'center',alignItems:'center',height:'calc(100vh - 250px)',flexDirection:'column'}}>
+          <CircularProgress style={{color:'#1CAC78'}} />
+          </div>
         ) : rides.length === 0 ? (
-          <p>No matching rides found.</p>
+          <div style={{display:'flex',justifyContent:'center',alignItems:'center',height:'calc(100vh - 250px)',flexDirection:'column'}}>
+            <img src="/No data-pana.png" width={'21%'}/>
+            <span>No matching rides found.</span>
+          </div>
         ) : (
           rides.map((ride) => (
             <div key={ride._id} style={{
@@ -106,7 +116,7 @@ const BookingPage = () => {
           ))
         )}
       </div>
-    </div>
+    </>
   );
 };
 

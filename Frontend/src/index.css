@@ -1,0 +1,12 @@
+*{
+    font-family: "Poppins",sans-serif !important;
+}
+
+label.Mui-focused {
+    color: #1CAC78 !important; /* or any color you want */
+  }
+  
+  /* Border color when focused */
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #1CAC78 !important; /* or any color you want */
+  }

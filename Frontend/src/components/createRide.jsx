@@ -61,7 +61,7 @@ const RideForm = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4, p: 2 }}>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4, p: 2, alignItems:'center' }}>
       {/* Form Section */}
       <Box
         sx={{
@@ -168,7 +168,7 @@ const RideForm = () => {
 
             <Grid item xs={12}>
               <Button
-                sx={{ backgroundColor: '#5BB1A9', fontWeight: 'bold' }}
+                sx={{  backgroundColor: '#20201e', fontWeight: 'bold', color:'#1CAC78' }}
                 variant="contained"
                 fullWidth
                 onClick={handleGetDirections}
@@ -179,7 +179,7 @@ const RideForm = () => {
 
             <Grid item xs={12}>
               <Button
-                sx={{ backgroundColor: '#5BB1A9', fontWeight: 'bold' }}
+                sx={{backgroundColor: '#1CAC78', fontWeight: 'bold', color:'#20201e'}}
                 variant="contained"
                 fullWidth
                 type="submit"
