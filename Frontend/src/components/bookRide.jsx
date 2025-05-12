@@ -6,7 +6,6 @@ const BookRide = () => {
   const [bookingStatus, setBookingStatus] = useState(null);
   const storage=window.localStorage;
   const user=JSON.parse(storage.getItem('user'));
-
   useEffect(() => {
     axios.get("http://localhost:3000/rides/available")
       .then(response => setRides(response.data))

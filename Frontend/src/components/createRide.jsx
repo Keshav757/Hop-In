@@ -36,7 +36,8 @@ const RideForm = () => {
     try {
       await createRide(rideData);
       console.log('Ride created successfully');
-      navigate('/home', { state: { showSnackbar: true } });
+      navigate('/home', { state: { showSnackbar: true, snackbarMessage: '🎉 Ride created successfully!' } });
+
     } catch (error) {
       console.error('Error creating ride:', error);
     }

@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 import { Autocomplete } from "@react-google-maps/api";
-import { CircularProgress } from "@mui/material";
+import { Button ,CircularProgress} from "@mui/material";
+
 
 const BookingPage = () => {
   const [originRef, setOriginRef] = useState(null);
   const [destinationRef, setDestinationRef] = useState(null);
   const [rides, setRides] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const navigate=useNavigate()
+  const storage=window.localStorage;
+  const user=JSON.parse(storage.getItem('user'));
+  const userId=user?.id
   const handleSearch = async () => {
     const originPlace = originRef?.getPlace();
     const destinationPlace = destinationRef?.getPlace();
@@ -42,6 +47,50 @@ const BookingPage = () => {
       setLoading(false);
     }
   };
+
+  const handleBooking = async (rideId, price) => {
+    try {
+      console.log(rideId);
+      console.log(userId);
+      const token = localStorage.getItem("token");
+  
+      if (!token) {
+        alert("You must be logged in to book a ride.");
+        return;
+      }
+  
+      const response = await axios.post(
+        "http://localhost:3000/bookings/new",
+        { rideId, userId, price },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      if (response.data.success) {
+        alert("Ride booked successfully!");
+        // Pass message to homepage
+        navigate('/home', {
+          state: { 
+            showSnackbar: true,
+            snackbarMessage: '🎉 Ride booked successfully!' 
+          }
+        });
+      } else {
+        alert(response.data.message || "Booking failed.");
+        navigate('/home', { state: { showSnackbar: true, snackbarMessage: '❌ Booking failed' } });
+      }
+    } catch (error) {
+      console.error("Error booking ride:", error);
+      alert("All seats are booked. Try another ride");
+      navigate('/home')
+    }
+  };
+  
+  
+  
   
 
   return (
@@ -112,6 +161,7 @@ const BookingPage = () => {
               <p><strong>Departure:</strong> {new Date(ride.departureTime).toLocaleString()}</p>
               <p><strong>Seats:</strong> {ride.availableSeats}</p>
               <p><strong>Price:</strong> ₹{ride.pricePerSeat}</p>
+              <Button variant="contained" color="primary" onClick={()=> handleBooking(ride._id,ride.pricePerSeat)}>Book ride</Button> 
             </div>
           ))
         )}
