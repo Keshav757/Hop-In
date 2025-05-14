@@ -36,13 +36,9 @@ const rideSchema = new mongoose.Schema({
     required: true
   },
   vehicle: {
-    type: String, // Vehicle model
+    type: String,
     required: true
   },
-  // bookings: [{
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'Booking'
-  // }],
   createdAt: {
     type: Date,
     default: Date.now

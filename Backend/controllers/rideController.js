@@ -129,3 +129,35 @@ exports.getAllRides = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
+
+exports.getRidesForUser = async (req, res) => {
+    try {
+        console.log("Inside getRidesForUser");
+        const userId = req.params.userId;
+
+        const rides = await Ride.find({ driver: userId });
+
+        console.log(`Found ${rides.length} rides`);
+        res.status(200).json(rides);
+    } catch (error) {
+        console.error("Error fetching rides:", error.message);
+        res.status(400).json({ error: error.message });
+    }
+};
+
+
+exports.deleteRide = async (req, res) => {
+    try {
+        const rideId = req.params.rideId;
+
+        const deletedRide = await Ride.findByIdAndDelete(rideId);
+
+        if (!deletedRide) {
+            return res.status(404).json({ message: "Ride not found" });
+        }
+
+        res.status(200).json({ message: "Ride deleted successfully", ride: deletedRide });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};

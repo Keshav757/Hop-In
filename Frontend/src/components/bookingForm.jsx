@@ -50,15 +50,16 @@ const BookingPage = () => {
 
   const handleBooking = async (rideId, price) => {
     try {
-      console.log(rideId);
-      console.log(userId);
+      console.log("ride",rideId);
+      console.log("user",userId);
+      console.log("price",price)
       const token = localStorage.getItem("token");
-  
+      console.log("Token being sent:", token);
+
       if (!token) {
         alert("You must be logged in to book a ride.");
         return;
       }
-  
       const response = await axios.post(
         "http://localhost:3000/bookings/new",
         { rideId, userId, price },
@@ -71,9 +72,8 @@ const BookingPage = () => {
   
       if (response.data.success) {
         alert("Ride booked successfully!");
-        // Pass message to homepage
         navigate('/home', {
-          state: { 
+          state: {
             showSnackbar: true,
             snackbarMessage: '🎉 Ride booked successfully!' 
           }
@@ -84,8 +84,8 @@ const BookingPage = () => {
       }
     } catch (error) {
       console.error("Error booking ride:", error);
-      alert("All seats are booked. Try another ride");
-      navigate('/home')
+      //alert("All seats are booked. Try another ride");
+      //navigate('/home')
     }
   };
   

@@ -17,4 +17,6 @@ const verifyToken = (req, res, next) => {
 router.post('/new-ride',verifyToken, rideController.createRide);
 router.get('/available', rideController.getAllRides);
 router.post('/match',rideController.matchRides)
+router.get('/:userId',rideController.getRidesForUser)
+router.delete("/delete/:rideId",rideController.deleteRide)
 module.exports = router;

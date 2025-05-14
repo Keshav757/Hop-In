@@ -30,12 +30,12 @@ export default function Authentication() {
         setEmailError(false);
         setPasswordError(false);
         setErrorMessage('');
-        if (!email || !password) {
-          if (!email) setEmailError(true);
+        if (!username || !password) {
+          if (!username) setEmailError(true);
           if (!password) setPasswordError(true);
           setErrorMessage('Email and password are required');
           return;
-        }
+        }        
         const data = new FormData(event.currentTarget);
         if (formState === 0) {
             // Sign In
@@ -185,16 +185,6 @@ export default function Authentication() {
                 autoComplete="role"
                 onChange={(e) => setRole(e.target.value)} // Update role state
                 />}
-              {/* {formState === 1 && <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="vehicle"
-                label="Vehicle if driver role"
-                name="vehicle"
-                autoComplete="vehicle"
-                onChange={(e) => setVehicle(e.target.value)}
-              />} */}
               {formState === 0 && <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
