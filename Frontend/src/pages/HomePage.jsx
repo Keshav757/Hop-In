@@ -35,7 +35,7 @@ function App() {
           overflow: 'hidden',
         }}
       >
-        <object type="image/svg+xml" data="/green3.svg" style={{width:'100%',height:'500px'}}></object>
+        <object type="image/svg+xml" data="/green.svg" style={{width:'100%',height:'500px'}}></object>
 
       </Box>
 
@@ -43,7 +43,7 @@ function App() {
       <Box
         sx={{
           position: 'absolute',
-          top: 'calc(100vh - 190px)', // Adjust 100px based on button height and spacing
+          top: 'calc(100vh - 90px)', // Adjust 100px based on button height and spacing
           left: '53%',
           transform: 'translateX(-50%)',
           display: 'flex',

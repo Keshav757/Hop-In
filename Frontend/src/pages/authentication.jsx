@@ -12,7 +12,8 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import wallImage from "../assets/wall.jpg"
+import log from "../assets/log.png"
+import signup from "../assets/gign.png"
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/authContext';
 import User from './user-home';
@@ -94,7 +95,7 @@ export default function Authentication() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: `url(${wallImage})`, // Replace with the path to your image
+            backgroundImage: `url(${formState==0?log:signup})`, // Replace with the path to your image
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
@@ -109,25 +110,22 @@ export default function Authentication() {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
 
             <div> 
-              <Button variant={formState === 0 ? "contained" : ""} onClick={() => setFormState(0)}>
+              <Button variant={formState === 0 ? "contained" : ""} style={{backgroundColor:formState===0?'#1cac78':'',color:'#20201e'}} sx={{ textTransform: 'none' }} onClick={() => setFormState(0)}>
                 Sign In
               </Button>
-              <Button variant={formState === 1 ? "contained" : ""} onClick={() => setFormState(1)}>
+              <Button variant={formState === 1 ? "contained" : ""} style={{backgroundColor:formState===1?'#1cac78':'',color:'#20201e'}} sx={{ textTransform: 'none' }} onClick={() => setFormState(1)}>
                 Sign Up
               </Button>
             </div>
             <br />
             {formState === 0 ?
               <Typography component="h1" variant="h5">
-                Sign in
+                SIGN IN
               </Typography> :
               <Typography component="h1" variant="h5">
-                Sign up
+                SIGN UP
               </Typography>
             }
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
@@ -196,14 +194,15 @@ export default function Authentication() {
                 onChange={(e) => setVehicle(e.target.value)}
               />} */}
               {formState === 0 && <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
+                control={<Checkbox value="remember" style={{color:'#1cac78'}}/>}
                 label="Remember me"
               />}
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2, textTransform: 'none'}}
+                style={{backgroundColor:formState===0?'#1cac78':'#20201e',color:formState===1?'#1cac78':'#20201e',fontWeight:'500'}}
               >
                 {formState === 0 ? 'Sign In' : 'Sign Up'}
               </Button>
