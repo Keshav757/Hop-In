@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import { Autocomplete } from "@react-google-maps/api";
 import { Button ,CircularProgress} from "@mui/material";
+import { GoogleMap, LoadScript, Autocomplete, DirectionsRenderer } from '@react-google-maps/api';
 
 
 const BookingPage = () => {
@@ -14,6 +14,29 @@ const BookingPage = () => {
   const storage=window.localStorage;
   const user=JSON.parse(storage.getItem('user'));
   const userId=user?.id
+
+  const handleGetDirections = (origin,destination) => {
+    const directionsService = new google.maps.DirectionsService();
+    
+    directionsService.route(
+      {
+        origin,
+        destination,
+        travelMode: google.maps.TravelMode.DRIVING,
+      },
+      (result, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          const distanceInMeters = result.routes[0].legs[0].distance.value;
+          const distanceInKilometers = distanceInMeters / 1000;
+          const calculatedPrice = 10; // 6 rupees per km
+          return calculatedPrice
+        } else {
+          console.error(`Error fetching directions: ${status}`);
+        }
+      }
+    );
+  };
+
   const handleSearch = async () => {
     const originPlace = originRef?.getPlace();
     const destinationPlace = destinationRef?.getPlace();
@@ -69,6 +92,28 @@ const BookingPage = () => {
           },
         }
       );
+
+      const handleGetDirections = (origin,destination) => {
+        const directionsService = new google.maps.DirectionsService();
+
+        directionsService.route(
+          {
+            origin,
+            destination,
+            travelMode: google.maps.TravelMode.DRIVING,
+          },
+          (result, status) => {
+            if (status === google.maps.DirectionsStatus.OK) {
+              const distanceInMeters = result.routes[0].legs[0].distance.value;
+              const distanceInKilometers = distanceInMeters / 1000;
+              const calculatedPrice = Math.round(distanceInKilometers * 6); // 6 rupees per km
+              return calculatedPrice
+            } else {
+              console.error(`Error fetching directions: ${status}`);
+            }
+          }
+        );
+      };
   
       if (response.data.success) {
         alert("Ride booked successfully!");
@@ -149,21 +194,26 @@ const BookingPage = () => {
             <span>No matching rides found.</span>
           </div>
         ) : (
-          rides.map((ride) => (
-            <div key={ride._id} style={{
-              border: "1px solid #ccc",
-              borderRadius: "8px",
-              padding: "1rem",
-              marginBottom: "1rem"
-            }}>
-              <p><strong>From:</strong> {ride.origin}</p>
-              <p><strong>To:</strong> {ride.destination}</p>
-              <p><strong>Departure:</strong> {new Date(ride.departureTime).toLocaleString()}</p>
-              <p><strong>Seats:</strong> {ride.availableSeats}</p>
-              <p><strong>Price:</strong> ₹{ride.pricePerSeat}</p>
-              <Button variant="contained" color="primary" onClick={()=> handleBooking(ride._id,ride.pricePerSeat)}>Book ride</Button> 
-            </div>
-          ))
+            rides.map((ride) => {
+                return (
+                  <div key={ride._id} style={{
+                    border: "1px solid #ccc",
+                    borderRadius: "8px",
+                    padding: "1rem",
+                    marginBottom: "1rem"
+                  }}>
+                    <p><strong>From:</strong> {ride.origin}</p>
+                    <p><strong>To:</strong> {ride.destination}</p>
+                    <p><strong>Departure:</strong> {new Date(ride.departureTime).toLocaleString()}</p>
+                    <p><strong>Seats:</strong> {ride.availableSeats}</p>
+                    <p><strong>Price:</strong> ₹{ride.pricePerSeat<handleGetDirections(ride.origin,ride.destination)?ride.pricePerSeat:handleGetDirections(ride.origin,ride.destination)}</p>
+                    <Button variant="contained" color="primary" onClick={() => handleBooking(ride._id, ride.pricePerSeat)}>
+                      Book ride
+                    </Button> 
+                  </div>
+                );
+              })
+              
         )}
       </div>
     </>

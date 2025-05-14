@@ -14,7 +14,8 @@ const RideForm = () => {
   const [pricePerSeat, setPricePerSeat] = useState(0);
   const [vehicle, setVehicle] = useState('');
   const [directions, setDirections] = useState(null);
-
+  const [kilometers, setKilometers] = useState(null);
+  const [enableRide, setEnableRide]= useState(true)
   const navigate = useNavigate();
   const { createRide } = useContext(RideContext);
   const originRef = useRef(null);
@@ -45,6 +46,7 @@ const RideForm = () => {
 
   const handleGetDirections = () => {
     const directionsService = new google.maps.DirectionsService();
+    
     directionsService.route(
       {
         origin,
@@ -53,7 +55,15 @@ const RideForm = () => {
       },
       (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
+          console.log(result)
           setDirections(result);
+          const distanceInMeters = result.routes[0].legs[0].distance.value;
+          const distanceInKilometers = distanceInMeters / 1000;
+          setKilometers(distanceInKilometers);
+
+          const calculatedPrice = Math.round(distanceInKilometers * 6); // 6 rupees per km
+          console
+          setPricePerSeat(calculatedPrice);
         } else {
           console.error(`Error fetching directions: ${status}`);
         }
@@ -92,7 +102,7 @@ const RideForm = () => {
                   label="Origin"
                   fullWidth
                   value={origin}
-                  onChange={(e) => setOrigin(e.target.value)}
+                  onChange={(e) => {setOrigin(e.target.value) ; setEnableRide(true)}}
                   required
                   sx={{ backgroundColor: '#fff', borderRadius: 1 }}
                 />
@@ -112,7 +122,7 @@ const RideForm = () => {
                   label="Destination"
                   fullWidth
                   value={destination}
-                  onChange={(e) => setDestination(e.target.value)}
+                  onChange={  (e) => {  setDestination(e.target.value); setEnableRide(true)}}
                   required
                   sx={{ backgroundColor: '#fff', borderRadius: 1 }}
                 />
@@ -125,7 +135,7 @@ const RideForm = () => {
                 type="datetime-local"
                 fullWidth
                 value={departureTime}
-                onChange={(e) => setDepartureTime(e.target.value)}
+                onChange={(e) =>{ setDepartureTime(e.target.value) ; setEnableRide(true)}}
                 required
                 InputLabelProps={{ shrink: true }}
                 sx={{ backgroundColor: '#fff', borderRadius: 1 }}
@@ -137,7 +147,7 @@ const RideForm = () => {
                 type="number"
                 fullWidth
                 value={availableSeats}
-                onChange={(e) => setAvailableSeats(e.target.value)}
+                onChange={(e) => {setAvailableSeats(e.target.value); setEnableRide(true)}}
                 required
                 InputProps={{ inputProps: { min: 2 } }}
                 sx={{ backgroundColor: '#fff', borderRadius: 1 }}
@@ -145,15 +155,16 @@ const RideForm = () => {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <TextField
-                label="Price Per Seat"
-                type="number"
-                fullWidth
-                value={pricePerSeat}
-                onChange={(e) => setPricePerSeat(e.target.value)}
-                required
-                sx={{ backgroundColor: '#fff', borderRadius: 1 }}
-              />
+            <TextField
+              label="Price Per Seat"
+              type="number"
+              fullWidth
+              value={pricePerSeat}
+              onChange={(e) => setPricePerSeat(e.target.value)}
+              required
+              InputProps={{ readOnly: true }}
+              sx={{ backgroundColor: '#fff', borderRadius: 1 }}
+            />
             </Grid>
 
             <Grid item xs={12}>
@@ -161,7 +172,7 @@ const RideForm = () => {
                 label="Vehicle Model"
                 fullWidth
                 value={vehicle}
-                onChange={(e) => setVehicle(e.target.value)}
+                onChange={(e) => {setVehicle(e.target.value); setEnableRide(true)}}
                 required
                 sx={{ backgroundColor: '#fff', borderRadius: 1 }}
               />
@@ -172,7 +183,10 @@ const RideForm = () => {
                 sx={{  backgroundColor: '#20201e', fontWeight: 'bold', color:'#1CAC78' }}
                 variant="contained"
                 fullWidth
-                onClick={handleGetDirections}
+                onClick={()=>{
+                  handleGetDirections()
+                  setEnableRide(false)
+                }}
               >
                 Get Directions
               </Button>
@@ -184,6 +198,7 @@ const RideForm = () => {
                 variant="contained"
                 fullWidth
                 type="submit"
+                disabled={enableRide}
               >
                 Create Ride
               </Button>
