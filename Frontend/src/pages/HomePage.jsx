@@ -26,58 +26,42 @@ function App() {
   return (
     <div>
       <Navbar />
-      <Box sx={{ width: '100vw', height: '100vh', overflowX: 'hidden' }}>
-        <Box sx={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
-          <DotLottieReact
-            src="https://lottie.host/bdc3531a-26a7-44dd-9fe8-3592ddcf6e98/TNNqvC9ZYp.lottie"
-            loop
-            autoplay
-            style={{ width: '100%', height: '100%' }}
-          />
-        </Box>
+    <Box sx={{ width: '100vw', height: '100vh', overflowX: 'hidden' }}>
+      {/* Fullscreen Animation */}
+      <Box
+        sx={{
+          width: '100vw',
+          height: '100vh',
+          overflow: 'hidden',
+        }}
+      >
+        <object type="image/svg+xml" data="/green.svg" style={{width:'100%',height:'500px'}}></object>
 
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 'calc(100vh - 100px)',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-          }}
-        >
-          <Stack direction="row" spacing={4}>
-            <Button
-              sx={{
-                backgroundColor: '#1CAC78',
-                color: '#20201e',
-                border: '1px solid #20201e',
-                fontWeight: 'bold',
-              }}
-              variant="contained"
-              size="large"
-              onClick={() => navigate('/create-ride')}
-            >
-              Offer a Ride
-            </Button>
-            <Button
-              sx={{
-                backgroundColor: '#20201e',
-                color: '#49bd93',
-                border: '1px solid #20201e',
-                fontWeight: 'bold',
-              }}
-              variant="contained"
-              size="large"
-              onClick={() => navigate('/matching')}
-            >
-              Find a Ride
-            </Button>
-          </Stack>
-        </Box>
       </Box>
+
+      {/* Centered Buttons Below Animation */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 'calc(100vh - 90px)', // Adjust 100px based on button height and spacing
+          left: '53%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+        }}
+      >
+        <Stack direction="row" spacing={4}>
+          <Button  sx={{backgroundColor: '#1CAC78',color:'#20201e',border:'1px solid #20201e',fontWeight:'bold'}} variant="contained" size="large" color="primary" onClick={() => navigate('/create-ride')}>
+            Offer a Ride
+          </Button>
+          <Button sx={{backgroundColor: '#20201e',color:'#1cac78',border:'1px solid #20201e',fontWeight:'bold'}} variant="contained" size="large" color="green" onClick={()=> navigate('/matching')}>
+            Find a Ride
+          </Button>
+        </Stack>
+      </Box>
+    </Box>       
       <Footer />
 
       <Snackbar open={showSnackbar} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
